@@ -69,7 +69,7 @@ for(let i = 0; i < posts.length; i++) {
     }
     postHTML.querySelector(".profile-pic").alt = author.name;
     postHTML.querySelector(".post-meta__author").innerHTML = author.name;
-    postHTML.querySelector(".post-meta__time").innerHTML = created;
+    postHTML.querySelector(".post-meta__time").innerHTML = italianDate(created);
     postHTML.querySelector(".post__text").innerHTML = content;
     postHTML.querySelector(".post__image img").src = media;
     postHTML.querySelector(".post__image img").alt = `Image post ${id}`;
@@ -90,3 +90,8 @@ for(let i = 0; i < posts.length; i++) {
 
 // Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
+
+// 1. Formattare le date in formato italiano (gg/mm/aaaa)
+function italianDate(date) {
+    return date.split("-").reverse().join("/");
+}
