@@ -59,6 +59,7 @@ const posts = [
 // Milestone 1 - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
 const containerHTML = document.querySelector("#container");
 const tplPostHTML = document.querySelector("#tpl-post").content;
+const postLiked = [];
 
 for(let i = 0; i < posts.length; i++) {
     const postHTML = tplPostHTML.cloneNode(true);
@@ -74,5 +75,18 @@ for(let i = 0; i < posts.length; i++) {
     postHTML.querySelector(".post__image img").alt = `Image post ${id}`;
     postHTML.querySelector(".js-like-button").dataset.postid = id;
     postHTML.querySelector(".js-likes-counter").innerHTML = likes;
+    postHTML.querySelector(".js-likes-counter").id = `like-counter-${id}`;
+    postHTML.querySelector(".js-like-button").addEventListener("click", function(e) {
+        e.preventDefault();
+        const id = this.dataset.postid;
+        if(!postLiked.includes(id)) {
+            this.classList.add("like-button--liked");
+            document.querySelector(`#like-counter-${id}`).innerHTML++;
+            postLiked.push(id);
+        }
+    });
     containerHTML.append(postHTML);
 }
+
+// Milestone 2 - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
+// Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
