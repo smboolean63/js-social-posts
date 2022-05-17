@@ -66,8 +66,10 @@ for(let i = 0; i < posts.length; i++) {
     const {id, content, media, author, likes, created} = posts[i];
     if(author.image !== null) {
         postHTML.querySelector(".profile-pic").src = author.image;
+        postHTML.querySelector(".profile-pic").alt = author.name;
+    } else {
+        postHTML.querySelector(".post-meta__icon").innerHTML = `<div class="profile-pic-default"><span>${getInitials(author.name)}</span></div>`;
     }
-    postHTML.querySelector(".profile-pic").alt = author.name;
     postHTML.querySelector(".post-meta__author").innerHTML = author.name;
     postHTML.querySelector(".post-meta__time").innerHTML = italianDate(created);
     postHTML.querySelector(".post__text").innerHTML = content;
@@ -94,4 +96,17 @@ for(let i = 0; i < posts.length; i++) {
 // 1. Formattare le date in formato italiano (gg/mm/aaaa)
 function italianDate(date) {
     return date.split("-").reverse().join("/");
+}
+// 2. Gestire l'assenza dell'immagine profilo con un elemento di fallback che contiene le iniziali dell'utente (es. Luca Formicola > LF).
+function getInitials(name) {
+    const nameArray = name.split(" ");
+
+    let initials = "";
+    let i = 0;
+    while (i < nameArray.length && i < 2) {
+        initials += nameArray[i][0];
+        i++;
+    }
+
+    return initials;
 }
