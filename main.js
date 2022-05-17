@@ -81,10 +81,16 @@ for(let i = 0; i < posts.length; i++) {
     postHTML.querySelector(".js-like-button").addEventListener("click", function(e) {
         e.preventDefault();
         const id = this.dataset.postid;
+        this.classList.toggle("like-button--liked");
+        const counterHTML = document.querySelector(`#like-counter-${id}`);
         if(!postLiked.includes(id)) {
-            this.classList.add("like-button--liked");
-            document.querySelector(`#like-counter-${id}`).innerHTML++;
+            counterHTML.innerHTML++;
             postLiked.push(id);
+        } else {
+            // 3. Al click su un pulsante "Mi Piace" di un post, se abbiamo già cliccato dobbiamo decrementare il contatore e cambiare il colore del bottone
+            counterHTML.innerHTML--;
+            const index = postLiked.indexOf(id);
+            postLiked.splice(index, 1);
         }
     });
     containerHTML.append(postHTML);
